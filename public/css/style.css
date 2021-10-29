@@ -1,0 +1,16 @@
+.container {
+    margin-top: 25px;
+    width: fit-content;
+}
+
+.phone {
+    width: 30%;
+    height: 30%;
+}
+.left-text-align{
+    text-align: left;
+}
+
+.buy-btn{
+    width: 108px;
+}
