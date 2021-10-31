@@ -8,7 +8,6 @@ exports.getCheckoutSession = catchAsync(
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
-            // success_url: `${req.protocol}://${req.get('host')}/?tour=${req.params.tourId}&user=${req.user.id}&price=${tour.price}`,
             success_url: `${req.protocol}://${req.get('host')}/`,
             cancel_url: `${req.protocol}://${req.get('host')}/`,
             line_items: [
@@ -16,7 +15,7 @@ exports.getCheckoutSession = catchAsync(
                     name: `Apple iPhone 11 (64GB) - Black`,
                     description: `The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface. ... The first-generation iPhone came preloaded with a suite of Apple software, including iTunes, the Safari web browser and iPhoto.`,
                     images: [
-                        `${req.protocol}://${req.get('host')}/img/iphone11`
+                        `https://ecommerce-demo-asif.herokuapp.com/img/iphone11.png`
                     ],
                     amount: 499 * 100,
                     currency: 'usd',
