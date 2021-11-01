@@ -5,6 +5,7 @@ const User = require('../model/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
+const { sendOTP, verifyOTP } = require('../config/otpConfig');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -87,29 +88,31 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3) Send OTP on mobile no
-  const accountSid = process.env.TWILIOt_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const client = require('twilio')(accountSid, authToken);
 
-  // Generate a random 6 digit OTP
-  const otp = Math.floor(100000 + Math.random() * 900000);
+  await sendOTP(user);
 
-  // Save this OTP to the databse
-  user.phoneOtp = otp
-  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: 'success',
+    message: 'OTP Sent'
+  });
 
-  // Send otp to the user
-  await client.messages
-    .create({
-      body: `Your OTP to log in to your account is ${otp}. Do not share your OTP with anyone. - Team Solulab`,
-      from: process.env.MESSAGE_FROM,
-      to: `+91${user.phone}`
-    });
-
-
-  // 3) If everything ok, send token to client
-  createSendToken(user, 200, req, res);
 });
+
+exports.verifyOTP = catchAsync(
+  async (req, res, next) => {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+
+    if (Date.now() > user.otpExpires || !(await verifyOTP(otp, user.phoneOtp))) {
+      return next(new AppError('Either OTP is Invalid or Expired', 401));
+    }
+    user.phoneOtp = undefined;
+    user.otpExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    createSendToken(user, 201, req, res);
+  }
+);
 
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {

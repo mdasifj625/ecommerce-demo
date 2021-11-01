@@ -1,0 +1,20 @@
+extends base
+
+block content
+    .form-signin.text-center.signin-box
+        form#form--login
+            img.mb-4(src='/img/logo.png' alt='' width='72' height='57')
+            h1.h3.mb-3.fw-normal Log In
+            .form-floating.form-login
+                input#user-email.form-control(type='email' placeholder='name@example.com')
+                label(for='user-email') Email
+            .form-floating.form-login
+                input#user-password.form-control(type='password' placeholder='*******')
+                label(for='user-password') Password
+
+            .form-floating.form-login
+                input#user-otp.form-control(type='text' placeholder='123456')
+                label(for='user-otp') OTP
+
+            button#send-otp.btn.btn-md.btn-primary.submit-btn Send OTP
+            button#submit-otp.btn.btn-md.btn-primary.submit-btn Submit OTP

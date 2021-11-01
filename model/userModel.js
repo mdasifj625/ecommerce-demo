@@ -51,7 +51,8 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
-    confirmEmailToken: String
+    confirmEmailToken: String,
+    otpExpires: Date
 });
 
 
