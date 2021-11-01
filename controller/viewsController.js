@@ -19,25 +19,6 @@ exports.getLogin = (req, res, next) => {
             title: 'Login'
         });
 }
-// exports.getSuccess = (req, res, next) => {
 
-//     // Render the data
-
-//     res
-//         .status(200)
-//         .render('success', {
-//             title: 'Payment Success'
-//         });
-// }
-// exports.getFail = (req, res, next) => {
-
-//     // Render the data
-
-//     res
-//         .status(200)
-//         .render('fail', {
-//             title: 'Payment Failed'
-//         });
-// }
 
 
