@@ -1,7 +1,7 @@
 {
-  "name": "nodejstask",
+  "name": "ecomerce_demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project is demonstration of ecomerce website",
   "main": "app.js",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -26,11 +26,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
-  "author": "Banupriya",
+  "author": "Asif",
   "license": "ISC"
 }
